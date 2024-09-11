@@ -21,7 +21,8 @@ public class Main {
     private static ObjectMapper objectMapper;
 
     public static void main(String[] args) {
-        System.out.println("Hi, i'm in main");
+        System.out.println("Statistics of flights between \"" + REQUIRED_DEPARTURE_CITY + "\" and \"" + REQUIRED_ARRIVAL_CITY + "\":\n" +
+                            "------------------------------------------------------------");
         String filePath = null;
         if (args.length > 0) {
             filePath = args[0];
@@ -68,8 +69,8 @@ public class Main {
 
     private static void SelectRequiredFlights(Map<String, LocalDateTime> minFlightTimeMap, List<Long> prices) {
         for (Ticket curTicket : listTickets.getTickets()) {
-            if (curTicket.getOriginName().equals(REQUIRED_DEPARTURE_CITY) &&
-                    curTicket.getDestinationName().equals(REQUIRED_ARRIVAL_CITY)) {
+            if (curTicket.getOriginName().equals(REQUIRED_DEPARTURE_CITY) && curTicket.getDestinationName().equals(REQUIRED_ARRIVAL_CITY) ||
+                    curTicket.getOriginName().equals(REQUIRED_ARRIVAL_CITY) && curTicket.getDestinationName().equals(REQUIRED_DEPARTURE_CITY)) {
                 prices.add(curTicket.getPrice());
 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy.MM.dd HH:mm");
